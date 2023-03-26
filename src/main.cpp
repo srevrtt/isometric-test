@@ -5,6 +5,7 @@
 
 #include "include/window.hpp"
 #include "include/tile.hpp"
+#include "include/map.hpp"
 
 int main(int argc, char *argv[]) {
   EngWindow *wnd = new EngWindow(1280, 720, "Isometric Test");
@@ -15,13 +16,13 @@ int main(int argc, char *argv[]) {
   bool running = true;
   SDL_Event event;
 
-  EngTile *testTile = new EngTile(10, 10, 283, 283, "../images/grass.png", wnd);
+  EngMap *map = new EngMap(wnd);
 
   while (running) {
     frameStart = SDL_GetTicks64();
 
     wnd->clear();
-    testTile->draw();
+    map->draw();
     wnd->display();
     
     while (SDL_PollEvent(&event)) {
