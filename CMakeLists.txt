@@ -4,7 +4,7 @@ project(IsometricTest VERSION 0.1)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED TRUE)
 
-set(SRCS src/main.cpp src/window.cpp)
+set(SRCS src/main.cpp src/window.cpp src/tile.cpp)
 
 if(MINGW)
   include_directories(external)
