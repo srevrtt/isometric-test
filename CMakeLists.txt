@@ -11,8 +11,16 @@ if(MINGW)
   link_directories(external/lib)
 endif(MINGW)
 
+if(UNIX AND NOT APPLE)
+  include_directories(/usr/include/SDL2)
+endif(UNIX AND NOT APPLE)
+
 add_executable(IsometricTest ${SRCS})
 
 if(MINGW)
   target_link_libraries(IsometricTest mingw32 SDL2main SDL2 SDL2_image SDL2_ttf)
 endif(MINGW)
+
+if(UNIX)
+  target_link_libraries(IsometricTest SDL2main SDL2 SDL2_image SDL2_ttf)
+endif(UNIX)
