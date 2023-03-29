@@ -19,7 +19,20 @@ EngTile::EngTile(int x, int y, int w, int h, std::string image, EngWindow *wnd) 
 
 // Draws the tile
 void EngTile::draw() {
-  SDL_RenderCopy(renderer, texture, nullptr, &dst);
+  if (shown) {
+    SDL_RenderCopy(renderer, texture, nullptr, &dst);
+  }
+}
+
+// Changes the position of the tile
+void EngTile::changePos(int x, int y) {
+  dst.x = x;
+  dst.y = y;
+}
+
+// Gets the tile's rectangle
+SDL_Rect EngTile::getRect() {
+  return dst;
 }
 
 // Destroys the tile

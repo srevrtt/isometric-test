@@ -3,9 +3,9 @@
 #include <SDL2/SDL.h>
 #include <string>
 
-#define WND_RED 0
-#define WND_GREEN 0
-#define WND_BLUE 0
+#define WND_RED 105
+#define WND_GREEN 170
+#define WND_BLUE 255
 
 class EngWindow {
 private:

@@ -30,6 +30,30 @@ int main(int argc, char *argv[]) {
       case SDL_QUIT:
         running = false;
         break;
+      case SDL_MOUSEMOTION:
+        {
+          SDL_Rect rect = map->selectedTile(event.motion.x, event.motion.y);
+
+          if (rect.x > 0) {
+            map->highlightTile(rect);
+          }
+
+          break;
+        }
+      case SDL_MOUSEBUTTONUP:
+        SDL_Rect btnrect = map->selectedTile(event.motion.x, event.motion.y);
+
+        if (btnrect.x > 0) {
+          if (event.button.button == SDL_BUTTON_LEFT) {
+            map->addTile(btnrect);
+          }
+
+          if (event.button.button == SDL_BUTTON_RIGHT) {
+            map->deleteTile(btnrect);
+          }
+        }
+
+        break;
       }
     }
 
