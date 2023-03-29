@@ -16,6 +16,10 @@ int main(int argc, char *argv[]) {
   bool running = true;
   SDL_Event event;
 
+  #ifdef __APPLE__
+    bool ctrlClick = false;
+  #endif
+
   EngMap *map = new EngMap(wnd);
 
   while (running) {
@@ -29,6 +33,23 @@ int main(int argc, char *argv[]) {
       switch (event.type) {
       case SDL_QUIT:
         running = false;
+        break;
+      case SDL_KEYDOWN:
+        #ifdef __APPLE__
+          if (event.key.keysym.sym == SDLK_LCTRL) {
+            ctrlClick = true;
+            std::cout << "??\n";
+          }
+        #endif
+
+        break;
+      case SDL_KEYUP:
+        #ifdef __APPLE__
+          if (event.key.keysym.sym == SDLK_LCTRL) {
+            ctrlClick = false;
+          }
+        #endif
+
         break;
       case SDL_MOUSEMOTION:
         {
@@ -44,13 +65,25 @@ int main(int argc, char *argv[]) {
         SDL_Rect btnrect = map->selectedTile(event.motion.x, event.motion.y);
 
         if (btnrect.x > 0) {
-          if (event.button.button == SDL_BUTTON_LEFT) {
-            map->addTile(btnrect);
-          }
+          #if defined(_WIN32) || defined(__linux__)
+            if (event.button.button == SDL_BUTTON_LEFT) {
+              map->addTile(btnrect);
+            }
 
-          if (event.button.button == SDL_BUTTON_RIGHT) {
-            map->deleteTile(btnrect);
-          }
+            if (event.button.button == SDL_BUTTON_RIGHT) {
+              map->deleteTile(btnrect);
+            }
+          #endif
+
+          #ifdef __APPLE__
+            if (ctrlClick && event.button.button == SDL_BUTTON_LEFT) {
+              map->deleteTile(btnrect);
+            }
+
+            if (!ctrlClick && event.button.button == SDL_BUTTON_LEFT) {
+              map->addTile(btnrect);
+            }
+          #endif
         }
 
         break;

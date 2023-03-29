@@ -15,6 +15,11 @@ if(UNIX AND NOT APPLE)
   include_directories(/usr/include/SDL2)
 endif(UNIX AND NOT APPLE)
 
+if(APPLE)
+  include_directories(/usr/local/include)
+  link_directories(/usr/local/lib)
+endif(APPLE)
+
 add_executable(IsometricTest ${SRCS})
 
 if(MINGW)
