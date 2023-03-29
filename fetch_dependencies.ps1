@@ -2,6 +2,9 @@ $ProgressPreference = 'SilentlyContinue'
 
 Write-Host "Info: Fetching dependencies for mingw..." -ForegroundColor blue
 
+$null = New-Item -Path "external" -Name "lib" -ItemType "directory" -Force
+$null = New-Item -Path "bin" -Name "lib" -ItemType "directory" -Force
+
 Write-Host "Info: Downloading SDL2..." -ForegroundColor blue
 Invoke-WebRequest "https://github.com/libsdl-org/SDL/releases/download/release-2.26.4/SDL2-devel-2.26.4-mingw.zip" -OutFile external/sdl.zip
 
@@ -30,7 +33,6 @@ Move-Item -Path external/SDL2_image/SDL2_image-2.6.3/x86_64-w64-mingw32/bin/SDL2
 Move-Item -Path external/SDL2_ttf/SDL2_ttf-2.20.2/x86_64-w64-mingw32/bin/SDL2_ttf.dll -Destination bin/SDL2_ttf.dll
 
 # Move static libraries
-$null = New-Item -Path "external" -Name "lib" -ItemType "directory"
 Move-Item -Path external/SDL2_/SDL2-2.26.4/x86_64-w64-mingw32/lib/*.a -Destination external/lib
 Move-Item -Path external/SDL2_/SDL2-2.26.4/x86_64-w64-mingw32/lib/*.la -Destination external/lib
 
