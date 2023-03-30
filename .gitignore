@@ -1,0 +1,6 @@
+bin
+build
+debug
+release
+.vscode
+external
